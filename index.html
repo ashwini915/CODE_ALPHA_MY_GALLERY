@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina Gallery | 200 Curated Visual Stories</title>
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header & Navigation Bar -->
+  <header class="gallery-header">
+    <div class="container header-container">
+      <!-- Brand Logo -->
+      <a href="#" class="brand" id="brandHomeLink">
+        <div class="brand-icon">
+          <i class="fa-solid fa-camera-retro"></i>
+        </div>
+        <div>
+          <h1 class="brand-title">Lumina Gallery</h1>
+          <p class="brand-subtitle">200 Curated Photographs</p>
+        </div>
+      </a>
+
+      <!-- Navigation Section Links -->
+      <nav class="nav-sections" aria-label="Main gallery sections">
+        <button class="nav-btn active" data-section="all">
+          <i class="fa-solid fa-grid-2"></i> All <span class="nav-count">(200)</span>
+        </button>
+        <button class="nav-btn" data-section="nature">
+          <i class="fa-solid fa-mountain-sun"></i> Nature <span class="nav-count">(50)</span>
+        </button>
+        <button class="nav-btn" data-section="animals">
+          <i class="fa-solid fa-paw"></i> Animals <span class="nav-count">(50)</span>
+        </button>
+        <button class="nav-btn" data-section="travel">
+          <i class="fa-solid fa-earth-americas"></i> Travel <span class="nav-count">(50)</span>
+        </button>
+        <button class="nav-btn" data-section="technology">
+          <i class="fa-solid fa-laptop-code"></i> Technology <span class="nav-count">(50)</span>
+        </button>
+      </nav>
+
+      <!-- Theme Switcher -->
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container main-content">
+    <!-- Active Section Header & Hero Banner -->
+    <section class="section-banner">
+      <div class="banner-content">
+        <div class="banner-badge" id="sectionBadge">
+          <i class="fa-solid fa-images"></i> <span id="sectionBadgeText">All Categories</span>
+        </div>
+        <h2 class="section-title" id="sectionTitle">All Photography Collection</h2>
+        <p class="section-description" id="sectionDescription">
+          Explore our complete collection of 200 stunning photographs across nature, wildlife, global destinations, and futuristic technology.
+        </p>
+      </div>
+      
+      <div class="banner-stats">
+        <div class="stat-card">
+          <span class="stat-number" id="currentPhotoCount">200</span>
+          <span class="stat-label" id="currentPhotoCountLabel">Total Photos</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls Bar: Category Filter Pills & Real-time Search -->
+    <section class="controls-section">
+      <!-- Category Filter Pills -->
+      <div class="filter-pills-wrap" role="toolbar" aria-label="Category filters">
+        <button class="filter-pill active" data-filter="all">
+          <i class="fa-solid fa-layer-group"></i> All Photos
+        </button>
+        <button class="filter-pill" data-filter="nature">
+          <i class="fa-solid fa-leaf"></i> Nature (50)
+        </button>
+        <button class="filter-pill" data-filter="animals">
+          <i class="fa-solid fa-hippo"></i> Animals (50)
+        </button>
+        <button class="filter-pill" data-filter="travel">
+          <i class="fa-solid fa-plane"></i> Travel (50)
+        </button>
+        <button class="filter-pill" data-filter="technology">
+          <i class="fa-solid fa-microchip"></i> Technology (50)
+        </button>
+      </div>
+
+      <!-- Search Box -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search 200 photos by title, tag, or description..." aria-label="Search photos" />
+        <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search" style="display: none;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Photo Gallery Grid -->
+    <section class="gallery-section">
+      <div id="galleryGrid" class="gallery-grid" aria-live="polite">
+        <!-- 200 cards dynamically rendered by script.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="empty-icon-wrap">
+          <i class="fa-regular fa-image empty-icon"></i>
+        </div>
+        <h3 id="emptyStateTitle">No matching photos found</h3>
+        <p id="emptyStateDesc">We couldn't find any photos matching your search criteria. Try a different keyword or reset filters.</p>
+        <button class="reset-filter-btn" id="resetFilterBtn">
+          <i class="fa-solid fa-rotate-left"></i> Reset to All Photos
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal View -->
+  <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <!-- Backdrop Overlay -->
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+
+    <!-- Lightbox Main Container -->
+    <div class="lightbox-container">
+      <!-- Top Action Bar -->
+      <div class="lightbox-top-bar">
+        <div class="lightbox-meta-top">
+          <span id="lightboxCategory" class="lightbox-category-badge">Nature</span>
+          <span id="lightboxCounter" class="lightbox-counter">Photo 1 / 50</span>
+        </div>
+
+        <div class="lightbox-actions-top">
+          <button id="lightboxZoomBtn" class="lightbox-btn" title="Toggle Zoom" aria-label="Toggle Zoom">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </button>
+          <button id="lightboxCloseBtn" class="lightbox-btn close-btn" title="Close (Esc)" aria-label="Close Lightbox">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Center Body with Image & Navigation -->
+      <div class="lightbox-body">
+        <!-- Previous Button -->
+        <button id="lightboxPrevBtn" class="lightbox-nav-btn prev-btn" title="Previous Photo (Left Arrow)" aria-label="Previous Photo">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <!-- Image Display Area -->
+        <div class="lightbox-image-wrapper">
+          <div id="lightboxSpinner" class="lightbox-spinner">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+          </div>
+          <img id="lightboxImg" class="lightbox-image" src="" alt="" />
+        </div>
+
+        <!-- Next Button -->
+        <button id="lightboxNextBtn" class="lightbox-nav-btn next-btn" title="Next Photo (Right Arrow)" aria-label="Next Photo">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Bottom Caption Bar -->
+      <div class="lightbox-bottom-bar">
+        <div class="lightbox-caption-text">
+          <h3 id="lightboxTitle" class="lightbox-title">Photo Title</h3>
+          <p id="lightboxDescription" class="lightbox-desc">Photo description and camera details.</p>
+        </div>
+        <div class="lightbox-keyboard-hints">
+          <span><kbd>←</kbd> <kbd>→</kbd> Navigate</span>
+          <span><kbd>Esc</kbd> Close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="gallery-footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 Lumina Gallery. 200 Unique High-Resolution Photographs. Pure HTML5, CSS3 &amp; Vanilla JavaScript.</p>
+    </div>
+  </footer>
+
+  <!-- Vanilla JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
